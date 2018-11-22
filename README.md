@@ -1,102 +1,98 @@
-/*
-** Copyright 2002-2015 KVASER AB, Sweden.  All rights reserved.
-*/
+# kvaser-linuxCAN
 
-
-- Linux drivers for Kvaser PCIeFD, PCIcan, PCIcanII, USBcanII,
-  Leaf and Mhydra -
+Linux drivers for Kvaser PCIeFD, PCIcan, PCIcanII, USBcanII, Leaf and Mhydra.
 
   Interface   Product                  Driver Name
  -----------+------------------------+-------------
   USB         Leaf Light               leaf
-              Leaf SemiPro
-              Leaf Professional
-              Memorator Professional
-              BlackBird
+  ​            Leaf SemiPro
+  ​            Leaf Professional
+  ​            Memorator Professional
+  ​            BlackBird
  -----------+------------------------+-------------
   miniPCIe    Mini PCI Express HS      leaf
  -----------+------------------------+-------------
   USB         Eagle                    mhydra
-              BlackBird v2
-              Memorator Pro 5xHS
-              USBcan Pro 5xHS
+  ​            BlackBird v2
+  ​            Memorator Pro 5xHS
+  ​            USBcan Pro 5xHS
  -----------+------------------------+-------------
   USB         USBcanII                 usbcanII
-              Memorator
+  ​            Memorator
  -----------+------------------------+-------------
   PCI         PCIcan                   pcican
-              PCIcanx
+  ​            PCIcanx
  -----------+------------------------+-------------
   PCIe        PCIEcan HS               pcican
-              PCIEcan HS/HS
+  ​            PCIEcan HS/HS
  -----------+------------------------+-------------
   PCIe        PCIEcan 4xHS             pciefd
  -----------+------------------------+-------------
   PCI         PC104                    pcicanII
-              PC104+
-              PCIcan II
-              PCIcanx II
+  ​            PC104+
+  ​            PCIcan II
+  ​            PCIcanx II
  -----------+------------------------+-------------
 
 
-System requirements:
+## System requirements:
 
-* Linux 2.6 or later
-* Header files and compiler for kernel compilation.
+- Linux 2.6 or later
+- Header files and compiler for kernel compilation.
   In Ubuntu 14.04 e.g. this is accomplished by issuing the command:
 
-    "sudo apt-get install build-essential"
+    sudo apt-get install build-essential
 
   On some systems you may also need to issue:
 
-    "sudo apt-get install linux-headers-`uname -r`"
+    sudo apt-get install linux-headers-`uname -r`
 
   NOTE! Having versions of the linux headers installed other than that of
-        the currently running kernel may cause conflicts and faulty drivers.
+  ​      the currently running kernel may cause conflicts and faulty drivers.
 
 
-Compilation:
+## Compilation:
 
-* To build all drivers:
+- To build all drivers:
 
-    "make"
+        make
 
-  To install all drivers:
+- To install all drivers:
 
-    "sudo make install"
+        sudo make install
 
-* To build just a single driver, go to the corresponding subdirectory:
+- To build just a single driver, go to the corresponding subdirectory:
 
-    "make"
-    "sudo ./installscript.sh"
+        make
+        sudo ./installscript.sh
 
   Note: All device drivers use the kvcommon driver. If you want to build and
   install only particular device drivers, you will first need to build and
   install the kvcommon driver from the linuxcan/common directory using the
   method above.
 
-* To build with debug printouts:
+- To build with debug printouts:
 
-    "make KV_DEBUG_ON=1"
+        make KV_DEBUG_ON=1
 
 Debug levels and some other settings may be changed in config.mak.
 
 
-Usage:
+## Usage:
 
-* USBcanII, Leaf and Mhydra will load/unload when inserting/removing the device
-* For PCI-drivers (pciefd, pcican, and pcicanII), use modprobe to load and
+- USBcanII, Leaf and Mhydra will load/unload when inserting/removing the device
+- For PCI-drivers (pciefd, pcican, and pcicanII), use modprobe to load and
   unload the drivers, e.g.:
     "modprobe pcican" to load pcican driver, and
     "modprobe -r pcican" unload pcican driver.
-* Try examples in /usr/doc/canlib/examples/
+- Try examples in /usr/doc/canlib/examples/
 
 NOTE! Please read ReleaseNotes before using the driver.
 
 
-Installed Files:
+## Installed Files:
 
-* Driver modules
+- Driver modules
 ----------------------------------
 /lib/modules/`uname -r`/kernel/drivers/char/kvpciefd.ko     (PCIEcan)
 /lib/modules/`uname -r`/kernel/drivers/char/kvpcican.ko     (PCIcan)
@@ -106,7 +102,7 @@ Installed Files:
 /lib/modules/`uname -r`/kernel/drivers/usb/misc/leaf.ko     (Leaf)
 /lib/modules/`uname -r`/kernel/drivers/usb/misc/mhydra.ko   (Mhydra)
 
-* Module setup
+- Module setup
 ----------------------------------
 On CentOS, RedHat, RHEL, Fedora and simlar systems, the following lines are
 added to /etc/modprobe.conf, on Debian, Ubuntu, Trisquel and similar systems
@@ -141,7 +137,7 @@ In the same files, the following lines are added to blacklist SocketCAN:
     blacklist kvaser_usb
     blacklist kvaser_pci
 
-* Module loading
+- Module loading
 ----------------------------------
 /usr/sbin/pciefd.sh      (start/stop pciefd driver;      by modprobe or manually)
 /usr/sbin/pcican.sh      (start/stop pcican driver;      by modprobe or manually)
@@ -151,7 +147,7 @@ In the same files, the following lines are added to blacklist SocketCAN:
 /usr/sbin/leaf.sh        (start/stop leaf driver;        by udev or manually)
 /usr/sbin/mhydra.sh      (start/stop mhydra driver;      by udev or manually)
 
-* Module hotplug support
+- Module hotplug support
 ----------------------------------
 If /etc/hotplug exists:
 /etc/hotplug/usbcanII.usermap
@@ -163,25 +159,24 @@ If /etc/hotplug exists:
 
 /etc/udev/rules.d/10-kvaser.rules
 
-* Include files for canlib library
+- Include files for canlib library
 ----------------------------------
-/usr/include/canlib.h
-/usr/include/canstat.h
+    /usr/include/canlib.h
+    /usr/include/canstat.h
 
-* Canlib library and links
+- Canlib library and links
 ----------------------------------
-/usr/lib/libcanlib.so
-/usr/lib/libcanlib.so.1.1.0
-/usr/lib/libcanlib.so.1
+    /usr/lib/libcanlib.so
+    /usr/lib/libcanlib.so.1.1.0
+    /usr/lib/libcanlib.so.1
 
-* Canlib documentation
-----------------------------------
-/usr/doc/canlib/HTMLhelp
+- Canlib documentation
+    ​    /usr/doc/canlib/HTMLhelp
 
-* Canlib examples
+- Canlib examples
 ----------------------------------
-/usr/doc/canlib/examples
+    /usr/doc/canlib/examples
 
-* Canlib Makefile template
+- Canlib Makefile template
 ----------------------------------
-/usr/doc/canlib/examples/Makefile
+    /usr/doc/canlib/examples/Makefile
